@@ -3,7 +3,7 @@
 ## Goal
 Create a playable Python game (examples: Snake, Pac-Man, survival game, or your own idea) that demonstrates lists, loops, functions, and organized data.
 
-Your game does **NOT** need to look like any example game, but it must meet the requirements below.
+Your game does **NOT** need to look like the example game, but it must meet the requirements below.
 
 ---
 
