@@ -1,8 +1,8 @@
 # The goals for this phase include:
 #  - Pick out some icons for your game
 #  - Establish a starting position for each icon
-#  - Print your playing space
-#  - Print your playing space
+#  - Pick a size for your playing space
+#  - Print your playing space with starting position of each icon
 
 # To make this work, you may have to type this into the terminal --> pip install curses
 import curses
