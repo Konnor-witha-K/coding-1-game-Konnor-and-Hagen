@@ -6,12 +6,14 @@ Part I: Planning & Design (15 pts)
 * Sketch a simple plan showing how the game will work step-by-step
 
 Game Idea:
-
+Top down dungeon crawler where you go into a cave with different levels, to get a dumb prize at the end
 
 Game Rules:
-
+Walls and obstacles the player cannot pass through, enemies that will deal damage (but also die when touched), changing room designs whenever you exit through a door, a prize that you can grab when you touch it
 
 Major Game Elements:
-
+Player will be: 🧙‍♂️ (wizard), Enemies will be: 🧟, 🧛‍♂️, 🧌 (zombie, vampire, orc), obstacles will be: 🪨, 🚪 (boulder for walls, door for rooms), Goals will be: 🗝️, 💼, 🌭 (key to access new rooms, briefcase until you pick it up then it becomes a hotdog)
 
 Gameplay Process:
+Your wizard character enters from the bottom of the screen and you can move them around with wasd, there will be a door and a key that lets you move onto the next room, in the following rooms there will be 2-3 enemies that will walk towards you and deal damage if they come into contact (you will have 3 hearts), as you make your way through the rooms, the enemies get faster (maybe), and in the fifth and final room, there are none but a briefcase in the middle and when you interact with it, by walking into it, the briefcase turns into a hotdog, and you get to enjoy your wizard lunch
+Maybe also implement a fireball aspect, where you can break obstacles in the room, and defeat your enemies before they get to you
