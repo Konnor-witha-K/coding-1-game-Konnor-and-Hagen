@@ -17,3 +17,9 @@ Player will be: 🧙‍♂️ (wizard), Enemies will be: 🧟, 🧛‍♂️, �
 Gameplay Process:
 Your wizard character enters from the bottom of the screen and you can move them around with wasd, there will be a door and a key that lets you move onto the next room, in the following rooms there will be 2-3 enemies that will walk towards you and deal damage if they come into contact (you will have 3 hearts), as you make your way through the rooms, the enemies get faster (maybe), and in the fifth and final room, there are none but a briefcase in the middle and when you interact with it, by walking into it, the briefcase turns into a hotdog, and you get to enjoy your wizard lunch
 Maybe also implement a fireball aspect, where you can break obstacles in the room, and defeat your enemies before they get to you
+Room 1:
+room size is 7 by 8, contains one key to the left, and one door to the right, pick up the key by walking into it then walk into the door to progress
+Room 2:
+room size is 8 by 9, contains on key in the top right corner, and one zombie enemy, avoid the zombie who will slowly walk to you, in order to get the key and enter the door on the left side walls
+Room 3;
+room size is 10 by 10, contains one key behind a gallon drum, which you can destroy to access the key, and the door on the top side of the room, will contain two vampires, slightly faster than the zombies from the previous room
