@@ -1,11 +1,12 @@
 # Write your game here
 
 import curses
+import emoji
 
 game_data = {
     "room_1_width": 8, 
     "room_1_height": 7, 
-    'player': {"x": 4, "y": 6},
+    'player': {"x": 4, "y": 6, "score": 0},
     'door_pos': {"x": 7, "y": 2},
     'collectibles': [
         {"x": 1, "y": 1, "collected": False},
@@ -42,7 +43,7 @@ game_data = {
     # ASCII Icons 
     'wizard': "\U0001F9D9", #🧙
     'obstacle': "\U0001FAA8 ", #🪨
-    'door_key': "\U0001F5DD", #🗝️
+    'door_key': emoji.emojize(":old_key: "), #🗝️
     'room_door': "\U0001F6AA", #🚪
     'empty': "  "
 }
@@ -76,14 +77,55 @@ def draw_board(stdscr):
         stdscr.addstr(y, 0, row, curses.color_pair(1))
 
     stdscr.addstr(game_data['room_1_height'] + 1, 0,
-                  f"Moves Survived: {game_data['player']} 5",
+                  f"Moves Survived: {game_data['player']['score']}",
                   curses.color_pair(1))
     stdscr.addstr(game_data['room_1_height'] + 2, 0,
                   "Move with W/A/S/D, Q to quit",
                   curses.color_pair(1))
     stdscr.refresh()
-    stdscr.getkey()
 
 
-curses.wrapper(draw_board)
+def move_player(key):
+    x = game_data['player']['x']
+    y = game_data['player']['y']
+
+    new_x, new_y = x, y
+    key = key.lower()
+
+    if key == "w" and y > 0:
+        new_y -= 1
+    elif key == "s" and y < game_data['room_1_height'] - 1:
+        new_y += 1
+    elif key == "a" and x > 0:
+        new_x -= 1
+    elif key == "d" and x < game_data['room_1_width'] - 1:
+        new_x += 1
+    else:
+        return  # Invalid key or move off board
+
+    # Update position and increment score
+    game_data['player']['x'] = new_x
+    game_data['player']['y'] = new_y
+    game_data['player']['score'] += 1
+
+def main(stdscr):
+    curses.curs_set(0)
+    stdscr.nodelay(True)
+
+    draw_board(stdscr)
+
+    while True:
+        try:
+            key = stdscr.getkey()
+        except:
+            key = None
+
+        if key:
+            if key.lower() == "q":
+                break
+
+            move_player(key)
+            draw_board(stdscr)
+
+curses.wrapper(main)
 # Good Luck!
