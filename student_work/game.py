@@ -15,10 +15,28 @@ game_data = {
         {"x": 4, "y": 1}
     ],
 
-    'walls': [
+    'room1_walls': [
         {"x": 0, "y": 0},
         {"x": 1, "y": 0},
         {"x": 2, "y": 0},
+        {"x": 3, "y": 0},
+        {"x": 4, "y": 0},
+        {"x": 5, "y": 0},
+        {"x": 6, "y": 0},
+        {"x": 7, "y": 0},
+        {"x": 0, "y": 1},
+        {"x": 0, "y": 2},
+        {"x": 0, "y": 3},
+        {"x": 0, "y": 4},
+        {"x": 0, "y": 5},
+        {"x": 0, "y": 6},
+        {"x": 7, "y": 0},
+        {"x": 7, "y": 1},
+        {"x": 7, "y": 2},
+        {"x": 7, "y": 3},
+        {"x": 7, "y": 4},
+        {"x": 7, "y": 5},
+        {"x": 7, "y": 6}
     ],
 
     # ASCII Icons 
@@ -26,7 +44,6 @@ game_data = {
     'obstacle': "\U0001FAA8 ", #🪨
     'door_key': "\U0001F5DD", #🗝️
     'room_door': "\U0001F6AA", #🚪
-    'room_wall': "\U0001F9F1", #🧱
     'empty': "  "
 }
 
@@ -49,8 +66,8 @@ def draw_board(stdscr):
             elif any(o['x'] == x and o['y'] == y for o in game_data['obstacles']):
                 row += game_data['obstacle']
             # Walls
-            elif any(p['x'] == x and p['y'] == y for p in game_data['walls']):
-                row += game_data['room_wall']
+            elif any(p['x'] == x and p['y'] == y for p in game_data['room1_walls']):
+                row += game_data['obstacle']
             # Key
             elif any(c['x'] == x and c['y'] == y and not c['collected'] for c in game_data['collectibles']):
                 row += game_data['door_key']
