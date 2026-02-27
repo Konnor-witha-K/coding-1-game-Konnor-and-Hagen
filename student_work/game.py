@@ -1,6 +1,8 @@
 # Write your game here
 
 import curses
+import random
+import time
 # may have type to install emojis with --> pip install emoji
 import emoji
 
