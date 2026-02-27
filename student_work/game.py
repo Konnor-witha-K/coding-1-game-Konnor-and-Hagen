@@ -1,6 +1,7 @@
 # Write your game here
 
 import curses
+# may have type to install emojis with --> pip install emoji
 import emoji
 
 game_data = {
