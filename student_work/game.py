@@ -149,8 +149,9 @@ def main(stdscr):
             move_player(key)
 
             move_troll()
-            
+
             draw_board(stdscr)
+            time.sleep(0.2)  # Add a small delay for smoother gameplay
 
 curses.wrapper(main)
 # Good Luck!
