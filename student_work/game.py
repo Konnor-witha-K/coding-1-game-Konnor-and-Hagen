@@ -121,14 +121,32 @@ def move_troll():
     random.shuffle(directions)
     ex, ey = game_data['enemy']['x'], game_data['enemy']['y']
 
+    valid_moves = []
+
     for dx, dy in directions:
         new_x = ex + dx
         new_y = ey + dy
-        if 0 <= new_x < game_data['room_1_width'] and 0 <= new_y < game_data['room_1_height']:
-            if not any(o['x'] == new_x and o['y'] == new_y for o in game_data['obstacles']):
-                game_data['enemy']['x'] = new_x
-                game_data['enemy']['y'] = new_y
-                break
+        # Inside board?
+        if not (0 <= new_x < game_data['room_1_width'] and
+                0 <= new_y < game_data['room_1_height']):
+            continue        
+        # Wall collision?
+        if any(o["x"] == new_x and o["y"] == new_y
+               for o in game_data['room1_walls']):
+            continue
+
+        # Rock collision?
+        if any(o["x"] == new_x and o["y"] == new_y
+               for o in game_data['obstacles']):
+            continue
+
+        valid_moves.append((new_x, new_y))
+
+    # If there are valid moves, pick one
+    if valid_moves:
+        new_x, new_y = random.choice(valid_moves)
+        game_data['enemy']["x"] = new_x
+        game_data['enemy']["y"] = new_y
 
 def main(stdscr):
     curses.curs_set(0)
