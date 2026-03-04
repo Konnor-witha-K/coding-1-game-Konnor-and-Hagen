@@ -7,10 +7,10 @@ import time
 import emoji
 
 game_data = {
-    "troll_pos": {"x": 3, "y": 4},
     "room_1_width": 8, 
     "room_1_height": 7, 
     'player': {"x": 4, "y": 6, "score": 0},
+    'enemy': {"x": 3, "y": 4},
     'door1_pos': {"x": 7, "y": 2},
     'collectibles': [
         {"x": 1, "y": 1, "collected": False},
@@ -45,7 +45,7 @@ game_data = {
     ],
 
     # ASCII Icons 
-    'wizard': "\U0001F9D9", #
+    'wizard': emoji.emojize(":mage:"), #
     'obstacle': "\U0001FAA8 ", #🪨
     'door_key': emoji.emojize(":old_key: "), #🗝️
     'room_door': "\U0001F6AA", #🚪
@@ -66,7 +66,7 @@ def draw_board(stdscr):
             if x == game_data['player']['x'] and y == game_data['player']['y']:
                 row += game_data['wizard']
             # Troll
-            if x == game_data['troll_pos']['x'] and y == game_data['troll_pos']['y']:
+            elif x == game_data['enemy']['x'] and y == game_data['enemy']['y']: 
                 row += game_data['cave_troll']
             # Door
             elif x == game_data['door1_pos']['x'] and y == game_data['door1_pos']['y']:
@@ -119,15 +119,15 @@ def move_player(key):
 def move_troll():
     directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
     random.shuffle(directions)
-    tx, ty = game_data['troll_pos']['x'], game_data['troll_pos']['y']
+    ex, ey = game_data['enemy']['x'], game_data['enemy']['y']
 
     for dx, dy in directions:
-        new_x = tx + dx
-        new_y = ty + dy
+        new_x = ex + dx
+        new_y = ey + dy
         if 0 <= new_x < game_data['room_1_width'] and 0 <= new_y < game_data['room_1_height']:
             if not any(o['x'] == new_x and o['y'] == new_y for o in game_data['obstacles']):
-                game_data['troll_pos']['x'] = new_x
-                game_data['troll_pos']['y'] = new_y
+                game_data['enemy']['x'] = new_x
+                game_data['enemy']['y'] = new_y
                 break
 
 def main(stdscr):
@@ -149,7 +149,7 @@ def main(stdscr):
             move_player(key)
 
             move_troll()
-
+            
             draw_board(stdscr)
 
 curses.wrapper(main)
