@@ -37,7 +37,6 @@ game_data = {
         {"x": 0, "y": 6},
         {"x": 7, "y": 0},
         {"x": 7, "y": 1},
-        {"x": 7, "y": 2},
         {"x": 7, "y": 3},
         {"x": 7, "y": 4},
         {"x": 7, "y": 5},
@@ -110,7 +109,17 @@ def move_player(key):
         new_x += 1
     else:
         return  # Invalid key or move off board
-
+    
+    # Check obstacle collision
+    if any(o["x"] == new_x and o["y"] == new_y for o in game_data['obstacles']):
+        return False
+    # Wall Collision
+    if any(o["x"] == new_x and o["y"] == new_y for o in game_data['room1_walls']):
+        return False
+    # Door Collision
+    # if any(o["x"] == new_x and o["y"] == new_y for o in game_data['door1_pos']):
+    #     return False
+    
     # Update position and increment score
     game_data['player']['x'] = new_x
     game_data['player']['y'] = new_y
