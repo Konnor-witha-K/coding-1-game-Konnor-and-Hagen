@@ -193,8 +193,19 @@ def main(stdscr):
             move_troll()
             check_collectibles()
 
+            if (game_data['player']["x"] == game_data['enemy']["x"] and
+                game_data['player']["y"] == game_data['enemy']["y"]):
+                break
+
             draw_board(stdscr)
-            time.sleep(0.2)  # Add a small delay for smoother gameplay
+            
+        time.sleep(0.2) 
+    
+    stdscr.clear()
+    stdscr.addstr(2, 2, "GAME OVER")
+    stdscr.addstr(3, 2, f"Final Score (Moves Survived): {game_data['player']['score']}") 
+    stdscr.refresh()
+    time.sleep(3)
 
 curses.wrapper(main)
 # Good Luck!
