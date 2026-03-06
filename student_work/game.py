@@ -135,6 +135,7 @@ def check_collectibles():
 
             c["collected"] = True
 
+
 def move_troll():
     directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
     random.shuffle(directions)
@@ -157,7 +158,6 @@ def move_troll():
         if any(o["x"] == new_x and o["y"] == new_y
                for o in game_data['door1_pos']):
             continue
-
         # Rock collision?
         if any(o["x"] == new_x and o["y"] == new_y
                for o in game_data['obstacles']):
