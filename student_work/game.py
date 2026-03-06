@@ -145,6 +145,10 @@ def move_troll():
         if any(o["x"] == new_x and o["y"] == new_y
                for o in game_data['room1_walls']):
             continue
+        # Door collision?
+        if any(o["x"] == new_x and o["y"] == new_y
+               for o in game_data['door1_pos']):
+            continue
 
         # Rock collision?
         if any(o["x"] == new_x and o["y"] == new_y
