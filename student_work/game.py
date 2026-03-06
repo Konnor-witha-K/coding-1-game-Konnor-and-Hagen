@@ -127,6 +127,14 @@ def move_player(key):
     game_data['player']['y'] = new_y
     game_data['player']['score'] += 1
 
+def check_collectibles():
+    for c in game_data['collectibles']:
+        if (not c["collected"] and
+            game_data['player']["x"] == c["x"] and
+            game_data['player']["y"] == c["y"]):
+
+            c["collected"] = True
+
 def move_troll():
     directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
     random.shuffle(directions)
@@ -182,6 +190,7 @@ def main(stdscr):
             move_player(key)
 
             move_troll()
+            check_collectibles()
 
             draw_board(stdscr)
             time.sleep(0.2)  # Add a small delay for smoother gameplay
