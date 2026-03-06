@@ -9,7 +9,7 @@ import emoji
 game_data = {
     "room_1_width": 8, 
     "room_1_height": 7, 
-    'player': {"x": 4, "y": 6, "score": 0},
+    'player': {"x": 4, "y": 6, "score": 0, "door1_unlocked": False},
     'enemy': {"x": 3, "y": 4},
     'door1_pos': [
         {"x": 7, "y": 2}
@@ -119,8 +119,9 @@ def move_player(key):
     if any(o["x"] == new_x and o["y"] == new_y for o in game_data['room1_walls']):
         return False
     # Door Collision
-    if any(o["x"] == new_x and o["y"] == new_y for o in game_data['door1_pos']):
-        return False
+    if game_data['player']['door1_unlocked'] == False:
+        if any(o["x"] == new_x and o["y"] == new_y for o in game_data['door1_pos']):
+            return False
     
     # Update position and increment score
     game_data['player']['x'] = new_x
@@ -134,7 +135,7 @@ def check_collectibles():
             game_data['player']["y"] == c["y"]):
 
             c["collected"] = True
-
+            game_data['player']['door1_unlocked'] = True
 
 def move_troll():
     directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
