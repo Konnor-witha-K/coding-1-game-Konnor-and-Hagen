@@ -11,7 +11,9 @@ game_data = {
     "room_1_height": 7, 
     'player': {"x": 4, "y": 6, "score": 0},
     'enemy': {"x": 3, "y": 4},
-    'door1_pos': {"x": 7, "y": 2},
+    'door1_pos': [
+        {"x": 7, "y": 2}
+    ],
     'collectibles': [
         {"x": 1, "y": 1, "collected": False},
     ],
@@ -68,7 +70,7 @@ def draw_board(stdscr):
             elif x == game_data['enemy']['x'] and y == game_data['enemy']['y']: 
                 row += game_data['cave_troll']
             # Door
-            elif x == game_data['door1_pos']['x'] and y == game_data['door1_pos']['y']:
+            elif any(o['x'] == x and o['y'] == y for o in game_data['door1_pos']):
                 row += game_data['room_door']
             # Obstacles
             elif any(o['x'] == x and o['y'] == y for o in game_data['obstacles']):
@@ -117,8 +119,8 @@ def move_player(key):
     if any(o["x"] == new_x and o["y"] == new_y for o in game_data['room1_walls']):
         return False
     # Door Collision
-    # if any(o["x"] == new_x and o["y"] == new_y for o in game_data['door1_pos']):
-    #     return False
+    if any(o["x"] == new_x and o["y"] == new_y for o in game_data['door1_pos']):
+        return False
     
     # Update position and increment score
     game_data['player']['x'] = new_x
