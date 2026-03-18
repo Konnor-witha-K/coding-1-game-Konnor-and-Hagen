@@ -14,12 +14,21 @@ game_data = {
     'door1_pos': [
         {"x": 7, "y": 2}
     ],
+
+    'door2_pos': [
+        {"x": 12, "y": 8}
+    ],
     'collectibles': [
         {"x": 1, "y": 1, "collected": False},
+    ], 
+
+    'lunch_pos': [
+        {"x": 9, "y": 6, "collected": False},
     ],
+    
     'obstacles': [
         {"x": 1, "y": 2},
-        {"x": 4, "y": 1}
+        {"x": 4, "y": 1},
     ],
 
     'room1_walls': [
@@ -55,23 +64,48 @@ game_data = {
         {"x": 7, "y": 4},
         {"x": 7, "y": 5},
         {"x": 7, "y": 6},
-        {"x": 8, "y": 6},
-        {"x": 9, "y": 6},
-        {"x": 10, "y": 6},
-        {"x": 11, "y": 6},
+        {"x": 8, "y": 5},
+        {"x": 9, "y": 5},
+        {"x": 10, "y": 5},
+        {"x": 11, "y": 5},
         {"x": 12, "y": 6},
-        {"x": 13, "y": 6},
-        {"x": 14, "y": 6},
-        {"x": 15, "y": 6},
-        {"x": 16, "y": 6},
-        {"x": 17, "y": 6},
-        {"x": 18, "y": 6},
         {"x": 19, "y": 6},
         {"x": 0, "y": 7},
         {"x": 1, "y": 7},
         {"x": 2, "y": 7},
         {"x": 3, "y": 7},
-        
+        {"x": 4, "y": 7},
+        {"x": 5, "y": 7},
+        {"x": 6, "y": 7},
+        {"x": 7, "y": 7},
+        {"x": 12, "y": 7},
+        {"x": 19, "y": 1},
+        {"x": 19, "y": 2},
+        {"x": 19, "y": 3},
+        {"x": 19, "y": 4},
+        {"x": 19, "y": 5},
+        {"x": 19, "y": 7},
+        {"x": 19, "y": 8},
+        {"x": 19, "y": 9},
+        {"x": 12, "y": 1},
+        {"x": 12, "y": 2},
+        {"x": 12, "y": 3},
+        {"x": 12, "y": 4},
+        {"x": 12, "y": 5},
+        {"x": 7, "y": 8},
+        {"x": 7, "y": 9},
+        {"x": 8, "y": 9},
+        {"x": 9, "y": 9},
+        {"x": 10, "y": 9},
+        {"x": 11, "y": 9},
+        {"x": 12, "y": 9},
+        {"x": 13, "y": 9},
+        {"x": 14, "y": 9},
+        {"x": 15, "y": 9},
+        {"x": 16, "y": 9},
+        {"x": 17, "y": 9},
+        {"x": 18, "y": 9},
+        {"x": 19, "y": 9}
     ],
 
     # ASCII Icons 
@@ -80,6 +114,7 @@ game_data = {
     'door_key': emoji.emojize(":old_key: "), #🗝️
     'room_door': "\U0001F6AA", #🚪
     'cave_troll': "\U0001F9CC ", #🧌
+    'briefcase': emoji.emojize(":briefcase:"), #💼
     'empty': "  "
 }
 
@@ -101,6 +136,9 @@ def draw_board(stdscr):
             # Door
             elif any(o['x'] == x and o['y'] == y for o in game_data['door1_pos']):
                 row += game_data['room_door']
+            # Door 2
+            elif any(o['x'] == x and o['y'] == y for o in game_data['door2_pos']):
+                row += game_data['room_door']
             # Obstacles
             elif any(o['x'] == x and o['y'] == y for o in game_data['obstacles']):
                 row += game_data['obstacle']
@@ -110,6 +148,9 @@ def draw_board(stdscr):
             # Key
             elif any(c['x'] == x and c['y'] == y and not c['collected'] for c in game_data['collectibles']):
                 row += game_data['door_key']
+            # Case
+            elif any(c['x'] == x and c['y'] == y and not c['collected'] for c in game_data['lunch_pos']):
+                row += game_data['briefcase']
             else:
                 row += game_data['empty']
         stdscr.addstr(y, 0, row, curses.color_pair(1))
