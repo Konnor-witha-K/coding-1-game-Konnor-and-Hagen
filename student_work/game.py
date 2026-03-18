@@ -23,7 +23,7 @@ game_data = {
     ], 
 
     'lunch_pos': [
-        {"x": 9, "y": 6, "collected": False},
+        {"x": 9, "y": 6},
     ],
     
     'obstacles': [
@@ -74,7 +74,6 @@ game_data = {
         {"x": 1, "y": 7},
         {"x": 2, "y": 7},
         {"x": 3, "y": 7},
-        {"x": 4, "y": 7},
         {"x": 5, "y": 7},
         {"x": 6, "y": 7},
         {"x": 7, "y": 7},
@@ -90,7 +89,6 @@ game_data = {
         {"x": 12, "y": 1},
         {"x": 12, "y": 2},
         {"x": 12, "y": 3},
-        {"x": 12, "y": 4},
         {"x": 12, "y": 5},
         {"x": 7, "y": 8},
         {"x": 7, "y": 9},
@@ -115,6 +113,7 @@ game_data = {
     'room_door': "\U0001F6AA", #🚪
     'cave_troll': "\U0001F9CC ", #🧌
     'briefcase': emoji.emojize(":briefcase:"), #💼
+    'hotdog': "\U0001F32D", #🌭
     'empty': "  "
 }
 
@@ -149,7 +148,7 @@ def draw_board(stdscr):
             elif any(c['x'] == x and c['y'] == y and not c['collected'] for c in game_data['collectibles']):
                 row += game_data['door_key']
             # Case
-            elif any(c['x'] == x and c['y'] == y and not c['collected'] for c in game_data['lunch_pos']):
+            elif any(c['x'] == x and c['y'] == y for c in game_data['lunch_pos']):
                 row += game_data['briefcase']
             else:
                 row += game_data['empty']
@@ -207,6 +206,7 @@ def check_collectibles():
             c["collected"] = True
             game_data['player']['door1_unlocked'] = True
 
+
 def move_troll():
     directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
     random.shuffle(directions)
@@ -242,6 +242,15 @@ def move_troll():
         game_data['enemy']["x"] = new_x
         game_data['enemy']["y"] = new_y
 
+def win():
+    stdscr.clear()
+    stdscr.addstr(2, 2, f"YOU WIN! and you got your lunch back! {game_data['hotdog']}")
+    stdscr.addstr(3, 2, f"Final Score (Moves taken): {game_data['player']['score']}") 
+    stdscr.refresh()
+    time.sleep(3)
+
+
+
 def main(stdscr):
     curses.curs_set(0)
     stdscr.nodelay(True)
@@ -262,10 +271,22 @@ def main(stdscr):
 
             move_troll()
             check_collectibles()
+            def win():
+                stdscr.clear()
+                stdscr.addstr(2, 2, f"YOU WIN! and you got your lunch back! {game_data['hotdog']}")
+                stdscr.addstr(3, 2, f"Final Score (Moves Taken): {game_data['player']['score']}") 
+                stdscr.refresh()
+                time.sleep(3)
+                exit
+                
 
             if (game_data['player']["x"] == game_data['enemy']["x"] and
                 game_data['player']["y"] == game_data['enemy']["y"]):
-                break
+                break # Player caught by enemy, game over
+            
+            if (game_data['player']["x"] == game_data['lunch_pos'][0]["x"] and
+                game_data['player']["y"] == game_data['lunch_pos'][0]["y"]):
+                win()
 
             draw_board(stdscr)
             
