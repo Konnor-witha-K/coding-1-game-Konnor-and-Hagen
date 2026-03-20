@@ -11,13 +11,21 @@ game_data = {
     "room_1_height": 10, 
     'player': {"x": 4, "y": 6, "score": 0, "door1_unlocked": False},
     'enemy': {"x": 3, "y": 4},
+    'zombie_pos': [
+        {"x": 10, "y": 1},
+        {"x": 11, "y": 2},
+    ],
+
     'door1_pos': [
         {"x": 7, "y": 2}
     ],
-
     'door2_pos': [
+        {"x": 12, "y": 4}
+    ],
+    'door3_pos': [
         {"x": 12, "y": 8}
     ],
+
     'collectibles': [
         {"x": 1, "y": 1, "collected": False},
     ], 
@@ -112,6 +120,8 @@ game_data = {
     'door_key': emoji.emojize(":old_key: "), #🗝️
     'room_door': "\U0001F6AA", #🚪
     'cave_troll': "\U0001F9CC ", #🧌
+    'vampire': "\U0001F9DB ", #🧛
+    'zombie': "\U0001F9DF", #🧟
     'briefcase': emoji.emojize(":briefcase:"), #💼
     'hotdog': "\U0001F32D", #🌭
     'empty': "  "
@@ -132,11 +142,17 @@ def draw_board(stdscr):
             # Troll
             elif x == game_data['enemy']['x'] and y == game_data['enemy']['y']: 
                 row += game_data['cave_troll']
+            # Zombie
+            elif any(z['x'] == x and z['y'] == y for z in game_data['zombie_pos']):
+                row += game_data['zombie']
             # Door
             elif any(o['x'] == x and o['y'] == y for o in game_data['door1_pos']):
                 row += game_data['room_door']
             # Door 2
             elif any(o['x'] == x and o['y'] == y for o in game_data['door2_pos']):
+                row += game_data['room_door']
+            # Door 3
+            elif any(o['x'] == x and o['y'] == y for o in game_data['door3_pos']):
                 row += game_data['room_door']
             # Obstacles
             elif any(o['x'] == x and o['y'] == y for o in game_data['obstacles']):
@@ -241,14 +257,6 @@ def move_troll():
         new_x, new_y = random.choice(valid_moves)
         game_data['enemy']["x"] = new_x
         game_data['enemy']["y"] = new_y
-
-def win():
-    stdscr.clear()
-    stdscr.addstr(2, 2, f"YOU WIN! and you got your lunch back! {game_data['hotdog']}")
-    stdscr.addstr(3, 2, f"Final Score (Moves taken): {game_data['player']['score']}") 
-    stdscr.refresh()
-    time.sleep(3)
-
 
 
 def main(stdscr):
